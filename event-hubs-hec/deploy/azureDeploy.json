@@ -234,7 +234,7 @@
     },
     "variables": {
         "functionAppName": "[parameters('appName')]",
-        "storageAccountName": "[parameters('storageAccountName')]",
+        "storageAccountName": "[parameters('storageAccountName')]"
     },
     "resources": [
         {
