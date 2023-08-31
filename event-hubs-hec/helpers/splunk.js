@@ -106,9 +106,22 @@ const sendToHEC = async function(message, sourcetype) {
         "Authorization": `Splunk ${process.env["SPLUNK_HEC_TOKEN"]}`
     }
 
+    const instance = axios.create({
+      https: {
+        checkServerIdentity: (host, cert) => {
+          // Customize certificate verification here, returning an error if the
+          // certificate is invalid or should not be trusted.
+        }
+      },
+      validateStatus: status => {
+        // Only reject responses with status codes outside the 2xx range
+        return status >= 200 && status < 300;
+      }
+    });
+
     await getHECPayload(message, sourcetype)
         .then(payload => {
-            return axios.post(process.env["SPLUNK_HEC_URL"], payload, {headers: headers});
+            return instance.post(process.env["SPLUNK_HEC_URL"], payload, {headers: headers});
         })
         .catch(err => {
             throw err;
