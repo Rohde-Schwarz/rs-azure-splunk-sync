@@ -593,6 +593,7 @@
             "storageAccountType": "[steps('basics').storageAccountType]",
             "storageAccountTLS": "[steps('basics').storageAccountTLS]",
             "appName": "[steps('basics').appName]",
+            "appStorageAccountname": "[steps('basics').appStorageAccountName]",
 
             "eventHubConnectionString": "[steps('appSettings').ehPolicyKeyApi.primaryConnectionString]",
             "SplunkEndpoint": "[steps('appSettings').splunkHECSection.splunkHECEndpoint]",
