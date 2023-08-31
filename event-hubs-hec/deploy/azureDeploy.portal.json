@@ -18,8 +18,8 @@
                 }
             },
             {
-                "name": "storageAccountName",
-                "label": "Storage Account App Name",
+                "name": "appStorageAccountName",
+                "label": "Storage Account Name",
                 "type": "Microsoft.Common.TextBox",
                 "toolTip": "The name of the storage account that you wish to create.",
                 "visible": true,
