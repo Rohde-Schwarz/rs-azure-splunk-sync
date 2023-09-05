@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const axios = require('axios');
+const https = require('https');
 
 const getSourceType = function(sourcetype, resourceId, category) {
 
@@ -107,17 +108,10 @@ const sendToHEC = async function(message, sourcetype) {
     }
 
     const instance = axios.create({
-      https: {
-        checkServerIdentity: (host, cert) => {
-          // Customize certificate verification here, returning an error if the
-          // certificate is invalid or should not be trusted.
-        }
-      },
-      validateStatus: status => {
-        // Only reject responses with status codes outside the 2xx range
-        return status >= 200 && status < 300;
-      }
-    });
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+      })
+    })
 
     await getHECPayload(message, sourcetype)
         .then(payload => {
