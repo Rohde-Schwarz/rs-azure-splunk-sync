@@ -18,6 +18,16 @@
                 }
             },
             {
+                "name": "appStorageAccountName",
+                "label": "Storage Account Name",
+                "type": "Microsoft.Common.TextBox",
+                "toolTip": "The name of the storage account that you wish to create.",
+                "visible": true,
+                "constraints": {
+                    "required": true
+                }
+            },
+            {
                 "name": "storageAccountType",
                 "label": "Storage Account Type",
                 "type": "Microsoft.Common.DropDown",
@@ -583,6 +593,7 @@
             "storageAccountType": "[steps('basics').storageAccountType]",
             "storageAccountTLS": "[steps('basics').storageAccountTLS]",
             "appName": "[steps('basics').appName]",
+            "appStorageAccountName": "[steps('basics').appStorageAccountName]",
 
             "eventHubConnectionString": "[steps('appSettings').ehPolicyKeyApi.primaryConnectionString]",
             "SplunkEndpoint": "[steps('appSettings').splunkHECSection.splunkHECEndpoint]",
