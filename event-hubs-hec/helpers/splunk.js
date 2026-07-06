@@ -14,6 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 const axios = require('axios');
+const https = require('https');
 
 const getSourceType = function(sourcetype, resourceId, category) {
 
@@ -106,9 +107,15 @@ const sendToHEC = async function(message, sourcetype) {
         "Authorization": `Splunk ${process.env["SPLUNK_HEC_TOKEN"]}`
     }
 
+    const instance = axios.create({
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+      })
+    })
+
     await getHECPayload(message, sourcetype)
         .then(payload => {
-            return axios.post(process.env["SPLUNK_HEC_URL"], payload, {headers: headers});
+            return instance.post(process.env["SPLUNK_HEC_URL"], payload, {headers: headers});
         })
         .catch(err => {
             throw err;
